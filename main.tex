@@ -1,0 +1,205 @@
+\documentclass[10pt,twocolumn,leqno]{article}
+\usepackage{amsmath,amsfonts,amssymb, mathtools}
+\usepackage{physics, sectsty, framed, hyperref, bm}
+\usepackage{amsthm}     % Std., but Prof. King uses a custom pkg, instead.
+\usepackage{enumerate}  % Easy generation of fancy enumerated-lists.
+\usepackage{lastpage}
+\usepackage{relsize}    % Provides cmds `\smaller' and `\larger'.
+\usepackage{tikz}       % For drawing
+
+%% T.fol is commented-out.  Use if you want to rotate text/images, or do
+%% fancy stuff with boxed text/equations .
+
+% \usepackage{graphicx}
+%% T.fol gives many macros for coloring text.
+\usepackage{xcolor}
+
+%% Alternatively, you could use this older package:
+% \usepackage{color}
+\usepackage{url}
+\def\eddress{\begingroup \urlstyle{tt}\Url}
+
+%!! Was called "~/Classwork/Analysis/kelly-f-hm.tex".
+
+                        
+\author{{Erin Strickland} \\
+    \eddress{strickland.g.erin@gmail.com}}
+\title{{\vspace*{-1.5in}}Notes on Shankar's \\
+    \emph{Principles of Quantum Mechanics}}
+\date{\vspace{-2ex}}
+%%
+
+                        %%% STA: Abbreviations %%%
+%%%% Tools
+\newcommand{\nc}{\newcommand}   \nc{\renc}{\renewcommand} \newcommand{\pc}{\providecommand}
+%%
+\nc\jq[1]{``\nobreak#1\unskip''} \nc{\jQ}[1]{`\nobreak#1\unskip'} % Quote
+\nc\df[1]{\textit{\textbf{#1}}} %DeFining a new term.
+\nc\emff{\textbf} % Strong emphasis. (Forte)
+\nc\emf{\textit} % Emphasis.  Does not switch between upshape and
+                        % itshape, unlike \emph.
+\nc\emfu[1]{\underbar{\ignorespaces#1\unskip}}  %Underlined emphasis.
+\nc\emfc[1]{{\color{red}#1}} %Emphasis by color.
+\nc{\emfff}[1]{\emfu{\emff{#1}}}
+\nc\thm[1]{{\mdseries\textsf{{#1}}}}    %For *citing* a thm by name.
+\nc\nth[2][th]{\ensuremath{#2^{\!\text{\textit{\,#1}}}}}
+%%
+% Note: Don't confuse \naturals with \natural --which is the prefix for a
+% "natural" in musical notation.
+\nc\zed{\mathbb{Z}}     \nc\zplus{{\zed_+}}     \nc\zminus{{\zed_-}}
+\nc\naturals{\mathbb{N}}
+%
+\nc\Q{{\mathbb{Q}}}     \nc\qplus{{\Q_+}}       \nc\qminus{{\Q_-}}
+\nc\QDyadic{{\mathbb{D}}} %Dyadic rationals.
+%
+\nc\reals{\mathbb{R}}    \nc\rplus{{\real_+}}    \nc\rminus{{\real_-}}
+\nc\realonept{{\dot\real}}      %One-point cptification of |R.
+\nc\realtwopt{{\overline\real}} %Two-point cptification of |R.
+% Alternatively:   \nc\realtwopt{{\ddot\real}}
+% T.preceding also called "Extended reals".
+\nc\realtwoptset{{\rcc\mii\pii}}
+%
+\nc\complex{\mathbb{C}} %Complex numbers.
+%%%% Kelly's and Erin's definitions
+\nc\g{g}        \nc\gx{g(x)}            \nc\fx{f(x)}
+\nc\fn{{f_n}}   \nc\fnx{{{f_n}(x)}}     \nc\kron{\delta_{ij}}
+%
+\nc\vecsp{\mathbb{V}} % Vector space
+                        %%% END: Abbreviations %%%
+                        
+                        %%% STA: Modifiers %%%
+%%
+% Set colors for section headings
+\sectionfont{\color{violet}}
+\subsectionfont{\color{violet}}
+\subsubsectionfont{\color{violet}}
+
+% Set theorem styles
+\newtheoremstyle{theorem}
+    {}
+    {}
+    {\color{blue}}
+    {}
+    {\color{red}}
+    {}
+    { }
+    {}
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem*{claim}{Claim}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{remark}{Remark}
+
+\newtheoremstyle{example}
+    {}
+    {}
+    {}
+    {}
+    {\color{olive}}
+    {}
+    { }
+    {}
+\theoremstyle{example}
+\newtheorem{example}{Example}[subsection]
+
+\newtheoremstyle{exercise}
+    {}
+    {}
+    {\color{teal}}
+    {}
+    {\color{red}}
+    {}
+    { }
+    {}
+\theoremstyle{exercise}
+\newtheorem{exercise}{Exercise}[subsection]
+
+% Redefine \proof
+\let\oldproof\proof
+\renc{\proof}{\oldproof[\emfc{Proof.}]}
+\renc\qedsymbol{\emfc{$\lozenge$}}
+
+% Have equations numbered by subsection
+\numberwithin{equation}{subsection}
+
+% Table of contents depth
+\setcounter{tocdepth}{2}
+%%
+                        %%% END: Modifiers %%%                        
+
+%% Document
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\section{Mathematical Introduction}
+\input{chapters/ch01.tex}
+
+\section{Review of Classical Mechanics}
+\input{chapters/ch02.tex}
+
+\section{All Is Not Well with Classical Mechanics}
+\input{chapters/ch03.tex}
+
+\section{The Postulates--A General Discussion}
+\input{chapters/ch04.tex}
+
+\section{Simple Problems in One Dimension}
+\input{chapters/ch05.tex}
+
+\section{The Classical Limit}
+\input{chapters/ch06.tex}
+
+\section{The Harmonic Oscillator}
+\input{chapters/ch07.tex}
+
+\section{The Path Integral Formulation of Quantum Theory}
+\input{chapters/ch08.tex}
+
+\section{The Heisenberg Uncertainty Relation}
+\input{chapters/ch09.tex}
+
+\section{System with $N$ Degrees of Freedom}
+\input{chapters/ch10.tex}
+
+\section{Symmetries and their Consequences}
+\input{chapters/ch11.tex}
+
+\section{Rotational Invariance and Angular Momentum}
+\input{chapters/ch12.tex}
+
+\section{The Hydrogen Atom}
+\input{chapters/ch13.tex}
+
+\section{Spin}
+\input{chapters/ch14.tex}
+
+\section{Addition of Angular Momentum}
+\input{chapters/ch15.tex}
+
+\section{Variational and WKB Methods}
+\input{chapters/ch16.tex}
+
+\section{Time-Independent Perturbation Theory}
+\input{chapters/ch17.tex}
+
+\section{Time-Dependent Perturbation Theory}
+\input{chapters/ch18.tex}
+
+\section{Scattering Theory}
+\input{chapters/ch19.tex}
+
+\section{The Dirac Equation}
+\input{chapters/ch20.tex}
+
+\section{Path Integrals--II}
+\input{chapters/ch21.tex}
+
+\appendix
+\input{chapters/appendix.tex}
+
+\end{document}

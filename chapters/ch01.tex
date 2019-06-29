@@ -1,0 +1,899 @@
+\subsection{Linear Vector Spaces: Basics}
+
+\colorlet{shadecolor}{pink}
+\begin{shaded*}
+A \df{linear vector space} $\vecsp$ is a collection of objects $\ket{1}, \ket{2}, \dots, \ket{V}, \dots, \ket{W}, \dots$, called vectors, for which there exists a definite rule for forming the vector sum (denoted $\ket{V} + \ket{W}$) and a definite rule for multiplication by scalars $a, b, \dots$, (denoted $a\ket{V}$) with the following features:
+    \begin{enumerate}
+        \item Closure: $\ket{V} + \ket{W} \in \vecsp$ and $a\ket{V} \in \vecsp$,
+        \item Scalar multiplication is distributive in the vectors: $a(\ket{V} + \ket{W}) = a\ket{V} + a\ket{W}$,
+        \item Scalar multiplication is distributive in the scalars: $(a + b)\ket{V} = a\ket{V} + b\ket{V}$,
+        \item Scalar multiplication is associative: \\$a(b\ket{V}) = ab\ket{V}$,
+        \item Addition is commutative: \\$\ket{V} + \ket{W} = \ket{W} + \ket{V}$,
+        \item Addition is associative: \\$\ket{V} + (\ket{W} + \ket{Z}) = (\ket{V} + \ket{W}) + \ket{Z}$,
+        \item There exists a null vector $\ket{0}$ obeying \\$\ket{V} + \ket{0} = \ket{V}$,
+        \item For every vector $\ket{V}$ there exists an inverse under addition, $\ket{-V}$, such that \\$\ket{V} + \ket{-V} = \ket{0}$.
+    \end{enumerate}
+\end{shaded*}
+
+
+The numbers $a, b, \dots$ are called the \df{field} over which the vector space is defined.
+
+\begin{exercise}
+Prove the following: (a) $\ket{0}$ is unique, (b) $0\ket{V} = \ket{0}$, (c) $\ket{-V} = -\ket{V}$, (d) $\ket{-V}$ is the unique additive inverse of $\ket{V}$.
+\end{exercise}
+
+%\newpage
+\begin{enumerate}
+    \item[] \begin{proof}
+        \item[(a)] Suppose $\ket{0}$ and $\ket{0'}$ are null vectors. Then we have $\ket{0} + \ket{0'} = \ket{0}$ and $\ket{0'} + \ket{0} = \ket{0'}$ by the definition of the null vector. Thus, by commutativity of addition, $\ket{0} = \ket{0'}$.
+        \item[(b)] We have
+        \begin{align*}
+            \ket{0} &= (0 + 1)\ket{V} + \ket{-V} \\
+            &= 0\ket{V} + \ket{V} + \ket{-V} \\
+            &= 0\ket{V}.
+        \end{align*}
+        \item[(c)] We have $\ket{V} + (-\ket{V}) = 0\ket{V} = \ket{0}$. Adding $\ket{-V}$ to each side of the equation yields \\$-\ket{V} = \ket{-V}$.
+        \item[(d)] Suppose $\ket{W}$ is an additive inverse of $\ket{V}$. Then $\ket{V} + \ket{W} = \ket{0}$. But $\ket{0}$ is unique, and so $\ket{V} + \ket{W} = \ket{V} + \ket{-V}$. Again adding $\ket{-V}$ to each side of this equation yields $\ket{W} = \ket{-V} $.
+    \end{proof}
+\end{enumerate}
+
+\begin{exercise}
+Consider the set of all entries of the form $(a,b,c)$ where the entries are real numbers. Addition and scalar multiplication are defined as follows: $$(a, b, c) + (d, e, f) = (a + d, b + e, c + f),$$ $$\alpha(a, b, c) = (\alpha a, \alpha b, \alpha c).$$ Write down the null and inverse of $(a, b, c)$ and show that vectors of the form $(a, b, 1)$ do not form a vector space.
+\end{exercise}
+
+\begin{proof}
+    The null vector of $(a, b, c)$ is $(0, 0, 0)$, and its inverse is $(-a, -b, -c)$. Vectors of the form $(a, b, 1)$ do not form a vector space under the given operations because they are not closed under addition (the third component will be 2, which does not have the required form).
+\end{proof}
+
+\begin{example}
+The set of $2 \times 2$ matrices form a vector space.
+\end{example}
+
+\begin{example}
+Consider all functions $\fx$ defined in an interval $0 \leq x \leq L$. With scalar multiplication by $a$ defined as $a\fx$ and vector addition defined as $(f + g)(x) = \fx + \gx$, this forms a vector space.
+\end{example}
+
+\begin{exercise}
+Do the functions that vanish at the endpoints form a vector space? How about periodic functions obeying $f(0) = f(L)$? How about functions that obey $f(0) = 4$?
+\end{exercise}
+
+\begin{proof}
+The functions which vanish at the endpoints do form a vector space, since adding any two vectors together will result in the endpoints still vanishing. Similarly for scalar multiplication. Periodic functions obeying $f(0) = f(L)$ also form a vector space, since $f(0) + g(0) = f(L) + g(L)$ and $af(0) = af(L)$. Functions that obey $f(0) = 4$ do not form a vector space since $f(0) + g(0) = 8 \neq 4$ and $af(0) = 4a = 4 \iff a = 1$.
+\end{proof}
+
+\begin{shaded*}
+Consider a linear relation of the form
+\begin{equation}\label{linear independence relation}
+    \sum_{i = 1}^n a_i \ket{i} = \ket{0},
+\end{equation}
+where $\ket{i} \neq \ket{0}$. The set of vectors is said to be \df{linearly independent} if the only linear relation such as \eqref{linear independence relation} is the trivial one with all $a_i = 0$. If the set of vectors is not linearly independent, we say they are \df{linearly dependent}.
+\end{shaded*}
+
+To be linearly independent means you can't write any member of the set in terms of the others. Otherwise you could:
+\begin{equation*}
+    \ket{3} = \sum_{i = 1, \neq 3}^n \frac{-a_i}{a_3}\ket{i},
+\end{equation*}
+supposing $a_3 \neq 0$, for example.
+
+\begin{exercise}
+Consider three elements from the vector space of real $2 \times 2$ matrices:
+$$
+\ket{1} = 
+\begin{bmatrix}
+0 & 1 \\
+0 & 0
+\end{bmatrix}
+\quad
+\ket{2} = 
+\begin{bmatrix}
+1 & 1 \\
+0 & 1
+\end{bmatrix}
+\quad
+\ket{3} = 
+\begin{bmatrix}
+-2 & -1 \\
+0  & -2
+\end{bmatrix}.
+$$
+Are they linearly independent?
+\end{exercise}
+
+\begin{proof}
+Suppose $\sum_{i = 1}^3 a_i \ket{i} = 0.$ Then we have
+\begin{align*}
+    a_1(0) + a_2(1) + a_3(-2) &= 0\\
+    a_1(1) + a_2(1) + a_3(-1) &= 0\\
+    a_1(0) + a_2(0) + a_3(0)  &= 0\\
+    a_1(0) + a_2(1) + a_3(-2) &= 0.
+\end{align*}
+Thus $a_2 = 2a_3$, so $a_1 + a_3 = 0 \implies a_1 = -a_3$. And so these matrices are not linearly independent.
+\end{proof}
+
+\begin{exercise}
+Show that the following row vectors are linearly dependent: $(1, 1, 0)$, $(1, 0, 1)$, and $(3, 2, 1)$. Show the opposite for $(1, 1, 0)$, $(1, 0, 1)$, and $(0, 1, 1)$.
+\end{exercise}
+
+\begin{proof}
+The first three are linearly dependent because $(3, 2, 1) = 2(1, 1, 0) + (1, 0, 1)$. To see that the next three are linearly independent, consider the equation $a(1, 1, 0) + b(1, 0, 1) + c(0, 1, 1) = 0$. Then $a = -b$, $b = -c$, and $a = -c$. But then $b = c$, and since $b = -c$, we have that $a = b = c = 0$.
+\end{proof}
+
+\begin{shaded*}
+A vector space has \df{dimension $n$} if it can accommodate a maximum of $n$ linearly independent vectors. It will be denoted by $\vecsp^n(\reals)$ if the field is real and by $\vecsp^n(\complex)$ if the field is complex.
+\end{shaded*}
+
+\begin{example}
+The set of $2 \times 2$ matrices form a four-dimensional vector space. The proof is that the following vectors are linearly independent:
+\begin{align*}
+&\ket{1} = 
+\begin{bmatrix}
+1 & 0 \\
+0 & 0
+\end{bmatrix}
+\quad
+\ket{2} = 
+\begin{bmatrix}
+0 & 1 \\
+0 & 0
+\end{bmatrix}
+\\
+&\ket{3} = 
+\begin{bmatrix}
+0 & 0 \\
+1 & 0
+\end{bmatrix}
+\quad
+\ket{4} = 
+\begin{bmatrix}
+0 & 0 \\
+0 & 1
+\end{bmatrix}.
+\end{align*}
+Moreover, any arbitrary $4 \times 4$ matrix can be written in terms of them, and so the dimensionality of the space can't be greater than 4.
+\end{example}
+
+\begin{theorem}\label{linear basis theorem}
+Any vector $\ket{V}$ in an $n$-dimensional space can be written as a linear combination of $n$ linearly independent vectors $\ket{1}, \dots, \ket{n}$.
+\end{theorem}
+
+\begin{proof}
+If there were a vector $\ket{V}$ for which this were not possible, it would join the given set of vectors and form a set of $n + 1$ linearly independent vectors, which is not possible in an $n$-dimensional space by definition.
+\end{proof}
+
+\begin{shaded*}
+A set of $n$ linearly independent vectors in an $n$-dimensional space is called a \df{basis}. Thus, for any $\ket{V}$, we can write
+\begin{equation}\label{basis expansion}
+    \boxed{\ket{V} = \sum_{i = 1}^n v_i \ket{i},}
+\end{equation}
+where the vectors $\ket{i}$ form a basis.
+\end{shaded*}
+
+The coefficients of expansion $v_i$ of a vector in terms of a linearly independent basis are called the \df{components of the vector in that basis}.
+
+\begin{theorem}\label{unique basis expansion}
+The expansion in \eqref{basis expansion} is unique.
+\end{theorem}
+
+\begin{proof}
+Suppose 
+\begin{equation*}
+    \ket{V} = \sum_{i = 1}^n v_i \ket{i}
+            = \sum_{i = 1}^n v'_i \ket{i}.
+\end{equation*}
+Then
+\begin{equation*}
+    \ket{0} = \sum_{i = 1}^n (v_i - v'_i) \ket{i},
+\end{equation*}
+which implies that $v_i = v'_i$ since the basis vectors are linearly independent.
+\end{proof}
+
+\begin{remark}
+If you change the basis, the components will change as well. We refer to the vector $\ket{V}$ in the abstract, but give it a concrete form when we expand it in a particular basis.
+\end{remark}
+
+To add two vectors, add their components:
+\begin{equation}\label{component vector addition}
+    \boxed{\ket{V} + \ket{W} = \sum_i (v_i + w_i) \ket{i}.}
+\end{equation}
+Similarly, to multiply by a scalar, multiply all its components by the scalar:
+\begin{equation}\label{component scalar multiplication}
+    \boxed{a\ket{V} = a \sum_i v_i \ket{i} = \sum_i av_i \ket{i}.}
+\end{equation}
+
+\subsection{Inner Product Spaces}
+
+\begin{shaded*}
+The \df{inner product} between any two vectors, denoted $\braket{V}{W}$, is a number dependent on the two vectors which obeys the following:
+\begin{enumerate}
+    \item Skew-symmetry: $\braket{V}{W} = \braket{W}{V}^*$
+    \item Positive semidefiniteness: $\braket{V}{V} \geq 0$ and is 0 \textit{iff} $\ket{V} = \ket{0}$
+    \item Linearity in ket:
+    \begin{align*}
+        \bra{V} (a\ket{W} + b\ket{Z}) &\equiv \braket{V}{aW + bZ} \\
+        &= a\braket{V}{W} + b\braket{V}{Z}.
+    \end{align*}
+\end{enumerate}
+\end{shaded*}
+
+A vector space with an inner product is called an \df{inner product space}.
+
+From the first axiom, we have:
+\begin{align}\label{antilinearity in bra}
+    \braket{aW + bZ}{V} &= \braket{V}{aW + bZ}^* \nonumber \\
+    &= (a\braket{V}{W} + b\braket{V}{Z})^* \nonumber \\
+    &= a^*\braket{V}{W}^* + b^*\braket{V}{Z}^* \nonumber \\
+    &= a^*\braket{W}{V} + b^*\braket{Z}{V}. \text{ That is,} \nonumber \\
+    \Aboxed{\braket{aW + bZ}{V} &= a^*\braket{W}{V} + b^*\braket{Z}{V},}
+\end{align}
+which expresses \df{antilinearity} of the inner product with respect to the first factor in the inner product.
+
+We say that two vectors are \df{orthogonal} if their inner product vanishes.
+
+We will refer to $\sqrt{\braket{V}{V}} \equiv |V|$ as the \df{norm} of the vector. A \df{normalized vector} has unit norm.
+
+A set of basis vectors all of unit norm, which are pairwise orthogonal will be called an \df{orthonormal basis}.
+
+\begin{theorem}[Gram-Schmidt]\label{gram-schmidt}
+Given a linearly independent basis we can form linear combinations of the basis vectors to obtain an orthonormal basis.
+\end{theorem}
+
+\begin{remark}
+The Gram-Schmidt algorithm will be given in the next section.
+\end{remark}
+
+Now let us find an explicit formula for the inner product. Given $\ket{V} = \sum_i v_i \ket{i}$ and $\ket{W} = \sum_j w_j \ket{j}$, we obtain
+\begin{equation*}
+    \braket{V}{W} = \sum_i \sum_j v_i^* w_j \braket{i}{j}.
+\end{equation*}
+Assuming an orthonormal basis ($\braket{i}{j} = \kron$), we find
+\begin{equation}\label{component inner product}
+    \boxed{\braket{V}{W} = \sum_i v_i^* w_i.}
+\end{equation}
+
+\begin{remark}
+Note that without the conjugation of the components of the first vector, $\braket{V}{V}$ would not necessarily be real or positive.
+\end{remark}
+
+Consider \eqref{component inner product}. Since $\ket{V}$ is uniquely specified by its components in a given basis, we may, in this basis, write it as a column vector:
+\begin{equation}\label{ket as column}
+    \ket{V} \rightarrow
+    \begin{bmatrix}
+    v_1 \\
+    v_2 \\
+    \vdots \\
+    v_n
+    \end{bmatrix}
+    \text{ in this basis.}
+\end{equation}
+The inner product $\braket{V}{W}$ is given by the matrix product of the transpose conjugate of the column vector representing $\ket{V}$ with the column vector representing $\ket{W}$:
+\begin{equation}\label{matrix inner product}
+\boxed{
+    \braket{V}{W} =
+    \begin{bmatrix}
+    v_1^* & v_2^* & \dots & v_n^*
+    \end{bmatrix}
+    \begin{bmatrix}
+    w_1 \\
+    w_2 \\
+    \vdots \\
+    w_n
+    \end{bmatrix}.
+}
+\end{equation}
+
+\begin{remark}
+Given two linearly dependent vectors, you can use the inner product to find the multiple between them:
+    $$\alpha\ket{V} + \beta\ket{W} = \ket{0}$$
+    $$\implies \alpha\braket{V}{V} + \beta\braket{V}{W} = \braket{V}{0} = 0$$
+    $$\implies \alpha = -\beta\frac{\braket{V}{W}}{\braket{V}{V}}.$$
+You can then choose $\beta = -1$, and thus
+\begin{equation}\label{two vector multiple}
+    \boxed{\alpha = \frac{\braket{V}{W}}{\braket{V}{V}}.}
+\end{equation}
+\end{remark}
+
+\subsection{Dual Spaces and the Dirac Notation}
+
+We've been considering the inner product to be generated from two ket vectors, represented by column vectors. But there's no way to make a number out of two columns by direct matrix multiplication. We've been writing one of the kets as its conjugate transpose and then multiply the row and column.
+
+More precisely, what's happening is that there are two vector spaces. According to \href{http://mathworld.wolfram.com/DualVectorSpace.html}{Wolfram MathWorld}, the dual vector space to a complex vector space $\vecsp$, denoted $\vecsp^*$, is the vector space of linear functionals $f : \vecsp \rightarrow \complex$. Bras are vectors in \emfu{this} dual vector space, \emfu{not} in the same vector space as the kets. We have these replacements:
+\begin{align*}
+    v &\rightarrow \ket{v}, \\
+    \phi &\rightarrow \bra{u}, \\
+    \phi_u(v) &\rightarrow \braket{u}{v}.
+\end{align*}
+It is the \emfu{functional} which is being represented by the row vector, because for each linear functional which takes a vector to a complex number there is a unique row vector which can be associated with it.
+
+\subsubsection{Expansion of Vectors in an Orthonormal Basis}
+
+Suppose we wish to expand a vector $\ket{V}$ in an orthonormal basis. We find
+    $$\ket{V} = \sum_i v_i \ket{i}$$
+    $$\implies \braket{j}{V} = \sum_i v_i \braket{j}{i} = v_j$$
+    $$\implies \ket{V} = \sum_i \ket{i} \braket{i}{V},$$
+since $\ket{i}$ and $\ket{j}$ are orthonormal.
+
+That is,
+\begin{equation}\label{component formula}
+    \boxed{v_j = \braket{j}{V}}
+\end{equation}
+
+\subsubsection{Adjoint Operation}
+
+If $\bra{V}$ is the bra corresponding to $\ket{V}$, what bra corresponds to $a\ket{V}$? In any basis, we find:
+\begin{equation}\label{adjoint of multiplied ket}
+    a\ket{V} \rightarrow
+    \begin{bmatrix}
+    av_1 \\
+    av_2 \\
+    \vdots \\
+    av_n
+    \end{bmatrix}
+    \rightarrow
+    \begin{bmatrix}
+    a^*v_1^*, a^*v_2^*, \dots, a^*v_n^*
+    \end{bmatrix}
+    \rightarrow \bra{V}a^*.
+\end{equation}
+
+Thus,
+\begin{align*}
+    a\ket{V} &= b\ket{W} + c\ket{Z} + \dots \\
+    \implies \bra{V}a^* &= \bra{W}b^* + \bra{Z}c^* + \dots.
+\end{align*}
+These two equations are said to be \df{adjoints of each other}. As a result, we can write
+\begin{equation}\label{adjoint expansion}
+    \boxed{\bra{V} = \sum_{i = 1} \bra{i}v_i^*.}
+\end{equation}
+
+\subsubsection{Gram-Schmidt Theorem}
+
+\begin{shaded*}
+The basic idea can be seen with the example of two linearly independent arrows:
+\begin{enumerate}
+    \item Scale the first by its own length, so it becomes a unit vector.
+    \item Subtract from the second vector its projection along the first, leaving behind only the part perpendicular to the first.
+    \item Scale the leftover piece by its own length. We now have an orthonormal basis.
+\end{enumerate}
+\end{shaded*}
+
+\begin{proof}
+\emfc{\textit{(Gram-Schmidt)}} Let $\ket{I}, \ket{II}, \dots$ be a linearly independent basis. The first vector of the orthonormal basis will be $$\ket{1} = \frac{\ket{I}}{|I|} \text{ where } |I| = \sqrt{\braket{I}{I}}.$$ Now consider $\ket{2'} = \ket{II} - \ket{1}\braket{1}{II}$. By construction it is orthogonal to $\ket{1}$: \\$\braket{1}{2'} = \braket{1}{II} - \braket{1}{1}\braket{1}{II} = 0.$ Then $$\ket{2} = \frac{\ket{2'}}{|2'|}.$$ Now consider $\ket{3'} = \ket{III} - \ket{1}\braket{1}{III} - \ket{2}\braket{2}{III}$, which is both orthogonal to $\ket{1}$ and $\ket{2}$. Then $$\ket{3} = \frac{\ket{3'}}{|3'|}.$$ Repeating this process, you have an orthonormal basis.
+\end{proof}
+
+\begin{exercise}
+Form an orthonormal basis in two dimensions starting with $\vec{A} = 3\vec{i} + 4\vec{j}$ and $\vec{B} = 2\vec{i} - 6\vec{j}$. Can you generate another orthonormal basis starting with these two vectors? If so, produce another.
+\end{exercise}
+
+\begin{proof}
+We first take
+\begin{equation*}
+   \ket{1} = \frac{\vec{A}}{\sqrt{3^2 + 4^2}} = 
+   \begin{bmatrix}
+   3/5 \\
+   4/5
+   \end{bmatrix}.
+\end{equation*}
+Then
+\begin{align*}
+   \ket{2'} &=
+   \begin{bmatrix}
+   2 \\
+   -6
+   \end{bmatrix}
+   - 
+   \begin{bmatrix}
+   3/5 \\
+   4/5
+   \end{bmatrix}
+   \begin{bmatrix}
+   3/5 & 4/5
+   \end{bmatrix}
+   \begin{bmatrix}
+   2 \\
+   -6
+   \end{bmatrix} \\
+   &= 
+   \begin{bmatrix}
+   2 \\
+   -6
+   \end{bmatrix}
+   - 
+   \begin{bmatrix}
+   3/5 \\
+   4/5
+   \end{bmatrix}
+   (-18/5) \\
+   &= 
+   \begin{bmatrix}
+   104/25 \\
+   -78/25
+   \end{bmatrix}.
+\end{align*}
+And so
+\begin{align*}
+    \ket{2} &= \frac{\ket{2'}}{\sqrt{(104/25)^2 + (-78/25)^2}} \\
+    &= 
+    \begin{bmatrix}
+   104/25 \\
+   -78/25
+   \end{bmatrix}
+   (5/26) \\
+   &= 
+   \begin{bmatrix}
+   4/5 \\
+   -3/5
+   \end{bmatrix}.
+\end{align*}
+Thus $\ket{1}$ and $\ket{2}$ form an orthonormal basis.
+
+Another orthonormal basis can be generated from these two vectors. This time we first take
+\begin{equation*}
+    \ket{1} = \frac{\vec{B}}{\sqrt{2^2 + (-6)^2}} = 
+    \begin{bmatrix}
+    1/\sqrt{10} \\
+    -3/\sqrt{10}
+    \end{bmatrix}.
+\end{equation*}
+Then 
+\begin{align*}
+    \ket{2'} &= 
+    \begin{bmatrix}
+    3 \\
+    4
+    \end{bmatrix}
+    -
+    \begin{bmatrix}
+    1/\sqrt{10} \\
+    -3/\sqrt{10}
+    \end{bmatrix}
+    \begin{bmatrix}
+    1/\sqrt{10} & -3/\sqrt{10}
+    \end{bmatrix}
+    \begin{bmatrix}
+    3 \\
+    4
+    \end{bmatrix} \\
+    &= 
+    \begin{bmatrix}
+    3 \\
+    4
+    \end{bmatrix}
+    -
+    \begin{bmatrix}
+    1/\sqrt{10} \\
+    -3/\sqrt{10}
+    \end{bmatrix}
+    (-9/\sqrt{10}) \\
+    &= 
+    \begin{bmatrix}
+    39/10 \\
+    13/10
+    \end{bmatrix}.
+\end{align*}
+And so
+\begin{align*}
+    \ket{2} &= \frac{\ket{2'}}{\sqrt{(39/10)^2 + (13/10)^2}} \\
+    &= 
+    \begin{bmatrix}
+    39/10 \\
+    13/10
+    \end{bmatrix}
+    (\sqrt{10}/13) \\
+    &= 
+    \begin{bmatrix}
+    3/\sqrt{10} \\
+    1/\sqrt{10}
+    \end{bmatrix}.
+\end{align*}
+Thus $\ket{1}$ and $\ket{2}$ form an orthonormal basis.
+\end{proof}
+
+\begin{exercise}
+Show how to go from the basis
+\begin{equation*}
+    \ket{I} = 
+    \begin{bmatrix}
+    3 \\
+    0 \\
+    0
+    \end{bmatrix}
+    \quad
+    \ket{II} = 
+    \begin{bmatrix}
+    0 \\
+    1 \\
+    2
+    \end{bmatrix}
+    \quad
+    \ket{III}
+    \begin{bmatrix}
+    0 \\
+    2 \\
+    5
+    \end{bmatrix}
+\end{equation*}
+to the orthonormal basis
+\begin{equation*}
+    \ket{1} = 
+    \begin{bmatrix}
+    1 \\
+    0 \\
+    0
+    \end{bmatrix}
+    \quad
+    \ket{2} = 
+    \begin{bmatrix}
+    0 \\
+    1/\sqrt{5} \\
+    2/\sqrt{5}
+    \end{bmatrix}
+    \quad
+    \ket{3}
+    \begin{bmatrix}
+    0 \\
+    -2/\sqrt{5} \\
+    1/\sqrt{5}
+    \end{bmatrix}.
+\end{equation*}
+\end{exercise}
+
+\begin{proof}
+We first take 
+\begin{equation*}
+    \ket{1} = \frac{\ket{I}}{\sqrt{3^2}} = 
+    \begin{bmatrix}
+    1 \\
+    0 \\
+    0
+    \end{bmatrix}.
+\end{equation*}
+Then
+\begin{align*}
+    \ket{2'} &= 
+    \begin{bmatrix}
+    0 \\
+    1 \\
+    2
+    \end{bmatrix}
+    -
+    \begin{bmatrix}
+    1 \\
+    0 \\
+    0
+    \end{bmatrix}
+    \begin{bmatrix}
+    1 & 0 & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+    0 \\
+    1 \\
+    2
+    \end{bmatrix} \\
+    &=
+    \begin{bmatrix}
+    0 \\
+    1 \\
+    2
+    \end{bmatrix}
+\end{align*}
+And so
+\begin{align*}
+    \ket{2} = \frac{\ket{2'}}{\sqrt{1^2 + 2^2}} = 
+    \begin{bmatrix}
+    0 \\
+    1/\sqrt{5} \\
+    2/\sqrt{5}
+    \end{bmatrix}.
+\end{align*}
+Then
+\begin{align*}
+    \ket{3'} = 
+    \begin{bmatrix}
+    0 \\
+    2 \\
+    5
+    \end{bmatrix}
+    &-
+    \begin{bmatrix}
+    1 \\
+    0 \\
+    0
+    \end{bmatrix}
+    \begin{bmatrix}
+    1 & 0 & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+    0 \\
+    2 \\
+    5
+    \end{bmatrix} \\
+    &-
+    \begin{bmatrix}
+    0 \\
+    1/\sqrt{5} \\
+    2/\sqrt{5}
+    \end{bmatrix}
+    \begin{bmatrix}
+    0 & 1/\sqrt{5} & 2/\sqrt{5}
+    \end{bmatrix}
+    \begin{bmatrix}
+    0 \\
+    2 \\
+    5
+    \end{bmatrix} \\
+    =
+    \begin{bmatrix}
+    0 \\
+    2 \\
+    5
+    \end{bmatrix}
+    &-
+    \begin{bmatrix}
+    0 \\
+    1/\sqrt{5} \\
+    2/\sqrt{5}
+    \end{bmatrix}
+    (12/\sqrt{5}) \\
+    = 
+    \begin{bmatrix}
+    0 \\
+    2 \\
+    5
+    \end{bmatrix}
+    &- 
+    \begin{bmatrix}
+    0 \\
+    12/5 \\
+    24/5
+    \end{bmatrix} 
+    =
+    \begin{bmatrix}
+    0 \\
+    -2/5 \\
+    1/5
+    \end{bmatrix}
+\end{align*}
+And so
+\begin{align*}
+    \ket{3} &= \frac{\ket{3'}}{\sqrt{(-2/5)^2 + (1/5)^2}} \\
+    &= 
+    \begin{bmatrix}
+    0 \\
+    -2/5 \\
+    1/5
+    \end{bmatrix}
+    (5/\sqrt{5}) \\
+    &= 
+    \begin{bmatrix}
+    0 \\
+    -2/\sqrt{5} \\
+    1/\sqrt{5}
+    \end{bmatrix}.
+\end{align*}
+\end{proof}
+
+\begin{theorem}\label{n_perp dim}
+The dimensionality of a space equals $n_\perp$, the maximum number of mutually orthogonal vectors in it.
+\end{theorem}
+
+\begin{proof}
+Any mutually orthogonal set is linearly independent:
+    $$\ket{0} = a\ket{1} + b\ket{2} + \dots$$
+    $$\implies \braket{1}{0} = a\braket{1}{1} + b\braket{1}{2} + \dots$$
+    $$0 = a\braket{1}{1}$$
+    $$\implies a = 0.$$
+Since we could have taken the inner product with any of the orthogonal vectors, the only solution to \eqref{linear independence relation} is the trivial one.
+
+Note that $n_\perp \nless n$, the dimensionality of the space, by the explicit construction in the Gram-Schmidt procedure. Moreover, the linear independence of the orthogonal vectors means $n_\perp \ngtr n$. Thus $n_\perp = n$.
+\end{proof}
+
+\subsubsection{Schwarz and Triangle Inequalities}
+
+\begin{theorem}[The Schwarz Inequality]\label{schwarz inequality}
+The Schwarz Inequality states that $|\braket{V}{W}| \leq |V||W|$.
+\end{theorem}
+
+\begin{proof}
+Consider
+\begin{equation*}
+    \ket{Z} = \ket{V} - \frac{\braket{W}{V}}{|W|^2}\ket{W}.
+\end{equation*}
+Then, since $\braket{Z}{Z} \geq 0$,
+\begin{align*}
+    \braket{Z}{Z} &= \bra{Z} \bigg{(}\ket{V} - \frac{\braket{W}{V}}{|W|^2}\ket{W}\bigg{)} \\
+    &= \braket{Z}{V} - \frac{\braket{W}{V}}{|W|^2} \braket{Z}{W} \\
+    &= \bigg{(}\bra{V} - \bra{W}\frac{\braket{W}{V}^*}{|W|^2}\bigg{)}\ket{V}  \\
+    &\qquad - \frac{\braket{W}{V}}{|W|^2} \bigg{(}\bra{V} - \bra{W}\frac{\braket{W}{V}^*}{|W|^2}\bigg{)} \ket{W} \\
+    &= \braket{V}{V} - \frac{\braket{W}{V}}{|W|^2} \braket{W}{V} \\
+    &\qquad - \frac{\braket{W}{V}}{|W|^2}\bigg{(}\braket{V}{W} - \frac{\braket{W}{V}}{|W|^2}\braket{W}{W}\bigg{)} \\
+    &= \braket{V}{V} - \frac{\braket{W}{V} \braket{V}{W}}{|W|^2} \\
+    &\geq 0 \\
+    \implies &\braket{V}{V} \geq \frac{\braket{W}{V} \braket{V}{W}}{|W|^2} \\
+    \implies &|\braket{V}{W}| \leq |V||W|.
+\end{align*}
+\end{proof}
+
+\begin{exercise}
+When will this equality be satisfied? Does this agree with your experience of arrows?
+\end{exercise}
+
+\begin{proof}
+The equality holds if and only if $\ket{V}$ and $\ket{W}$ are linearly dependent.
+
+First suppose that $\ket{V} = a\ket{W}$. Then
+\begin{align*}
+    |\braket{V}{W}| &= |a^*\braket{W}{W}| \\
+    &= |a||W||W| \\
+    &= |V||W|.
+\end{align*}
+
+Now suppose that $|\braket{V}{W}| = |V||W|$. Then $\braket{V}{W} \neq 0$, and so the vectors are linearly dependent by \eqref{two vector multiple}.
+
+This agrees with my experience of arrows because that's the only time $\cos{(\theta)} = 1$.
+\end{proof}
+
+\begin{theorem}[The Triangle Inequality]\label{triangle inequality}
+The Triangle Inequality states that $|V + W| \leq |V| + |W|$.
+\end{theorem}
+
+\begin{exercise}
+Prove the triangle inequality starting with $|V + W|^2$. You must use $\real \braket{V}{W} \leq |\braket{V}{W}|$ and the Schwarz inequality. Show that the final inequality becomes an equality only if $\ket{V} = a\ket{W}$ where $a$ is a real positive scalar.
+\end{exercise}
+
+\begin{proof} We have
+\begin{align}\label{triangle equality}
+    |V + W|^2 &= \braket{V + W}{V + W} \nonumber \\
+    &= \braket{V}{V} + \braket{V}{W} + \braket{W}{V} + \braket{W}{W} \nonumber \\
+    &= \braket{V}{V} + \braket{V}{W} + \braket{V}{W}^* + \braket{W}{W} \nonumber \\
+    &= \braket{V}{V} + 2\real\braket{V}{W} + \braket{W}{W} \nonumber \\
+    &\leq \braket{V}{V} + 2|\braket{V}{W}| + \braket{W}{W} \\
+    &\leq |V|^2 + 2|V||W| + |W|^2 \nonumber \\
+    &= |V|^2 + |W|^2. \nonumber
+\end{align}
+
+Suppose $|V + W|^2 = |V|^2 + |W|^2$. Then \eqref{triangle equality} becomes
+\begin{equation*}
+    |V|^2 + 2\real \braket{V}{W} + |W|^2 = |V|^2 + 2|\braket{V}{W}| + |W|^2.
+\end{equation*}
+That is,
+\begin{equation*}
+    \real \braket{V}{W} = |\braket{V}{W}|,
+\end{equation*}
+which implies that $\braket{V}{W}$ is a real positive scalar. By \eqref{two vector multiple} $a$ is a real positive scalar.
+\end{proof}
+
+\subsection{Subspaces}
+
+Given a vector space $\vecsp$, a subset of its elements that form a vector space among themselves (under the same vector addition and scalar multiplication) is called a \df{subspace}. We will denote a particular subspace $i$ of dimensionality $n_i$ by $\vecsp_i^{n_i}$.
+
+\begin{example}
+The space $\vecsp^3(\reals)$ has the following subspaces:
+\begin{enumerate}
+    \item all vectors along the $x$ axis, $\vecsp_x^{1}$
+    \item all vectors along the $y$ axis, $\vecsp_y^{1}$
+    \item all vectors in the $x-y$ plane, $\vecsp_{xy}^{2}$.
+\end{enumerate}
+\end{example}
+
+\begin{shaded*}
+Given two subspaces $\vecsp_i^{n_i}$ and $\vecsp_j^{m_j}$, we define their sum $\vecsp_i^{n_i} \oplus \vecsp_j^{m_j} = \vecsp_k^{m_k}$ as the set containing
+\begin{enumerate}
+    \item all elements of $\vecsp_i^{n_i}$
+    \item all elements of $\vecsp_j^{m_j}$
+    \item all possible linear combinations of the above.
+\end{enumerate}
+\end{shaded*}
+
+\begin{example}
+$\vecsp_x^{1} \oplus \vecsp_y^{1} = \vecsp_{xy}^{2}$.
+\end{example}
+
+\begin{exercise}
+In a space $\vecsp^n$, prove that the set of all vectors $\{\ket{V_\perp^1}, \ket{V_\perp^2}, \dots\}$, orthogonal to any \\$\ket{V} \neq \ket{0}$, form a subspace $\vecsp^{n - 1}$.
+\end{exercise}
+
+\begin{proof}
+Let $\ket{V} \neq \ket{0}$ be arbitrary. First we check closure:
+\begin{align*}
+    \braket{V_\perp^i + V_\perp^j}{V} = \braket{V_\perp^i}{V} + \braket{V_\perp^j}{V} = 0 \quad &\checkmark \\
+    \braket{aV_\perp^i}{V} = a^*\braket{V_\perp^i}{V} = 0. \quad &\checkmark
+\end{align*}
+
+Next we check that the null vector is in the set:
+\begin{equation*}
+    \braket{0}{V} = 0. \quad \checkmark
+\end{equation*}
+
+Next we check that $\ket{-V_\perp^i}$ is in the set:
+\begin{equation*}
+    \braket{-V_\perp^i}{V} = -\braket{V_\perp^i}{V} = 0. \quad \checkmark
+\end{equation*}
+
+All other axioms of a vector space carry over, and so the set is a subspace.
+
+To see that the dimensionality of the space is $n - 1$, consider an orthogonal basis for $\vecsp^n$ for which $\ket{V}$ is an element. Then it is clear that the other $n - 1$ elements of the basis form an orthogonal basis for $\{\ket{V_\perp^1}, \ket{V_\perp^2}, \dots\}$.
+\end{proof}
+
+\begin{exercise}
+Suppose $\vecsp_1^{n_1}$ and $\vecsp_2^{n_2}$ are two subspaces such that any element of $\vecsp_1$ is orthogonal to any element of $\vecsp_2$. Show that the dimensionality of $\vecsp_1 \oplus \vecsp_2$ is $n_1 + n_2$. (Hint: Theorem \eqref{n_perp dim}.)
+\end{exercise}
+
+\begin{proof}
+Let $\ket{1}, \ket{2}, \dots, \ket{n_1}$ be an orthogonal basis for $\vecsp_1$ and $\ket{1'}, \ket{2'}, \dots, \ket{n_2'}$ be an orthogonal basis for $\vecsp_2$. First note that since any element of $\vecsp_1$ is orthogonal to any element of $\vecsp_2$, each element of the basis for $\vecsp_1$ is orthogonal to each element of the basis for $\vecsp_2$. Thus we can form the orthogonal basis $\ket{1}, \ket{2}, \dots, \ket{n_1}, \ket{1'}, \ket{2'}, \dots, \ket{n_2'}$ for $\vecsp_1 \oplus \vecsp_2$.
+\end{proof}
+
+\subsection{Linear Operators}
+
+An \df{operator} $\Omega$ is an instruction for transforming any given vector $\ket{V}$ into another, $\ket{V'}$. The action of the operator is represented as follows: $\Omega\ket{V} = \ket{V'}$. The can also act on bras: $\bra{V'}\Omega = \bra{V''}$.
+\begin{shaded*}
+We will only be concerned with \df{linear operators}, which obey the following:
+\begin{enumerate}
+    \item $\Omega \alpha \ket{V_i} = \alpha\Omega\ket{V_i}$
+    \item $\Omega\{\alpha\ket{V_i} + \beta\ket{V_j}\} = \alpha\Omega\ket{V_i} + \beta\Omega\ket{V_j}$
+    \item $\bra{V_i}\alpha\Omega = \bra{V_i}\Omega\alpha$
+    \item $\{\bra{V_i}\alpha + \bra{V_j}\beta\}\Omega = \alpha\bra{V_i}\Omega + \beta\bra{V_j}\Omega$.
+\end{enumerate}
+\end{shaded*}
+
+\begin{example}
+The identity operator $I$, whose action is $I\ket{V} = \ket{V}$ for all kets $\ket{V}$ and $\bra{V}I = \bra{V}$ for all bras $\bra{V}$.
+\end{example}
+
+\begin{example}
+The operator on $\vecsp^3(\reals)$ given by the action: $$R(\bm{\theta}) \rightarrow \text{Rotate vector by } |\bm{\theta}| \text{ about unit vector } \tfrac{\bm{\theta}}{|\bm{\theta}|}.$$ For instance:
+\begin{align*}
+    R(\tfrac{1}{2}\pi \bm{i})\ket{1} &= \ket{1} \\
+    R(\tfrac{1}{2}\pi \bm{i})\ket{2} &= \ket{3} \\
+    R(\tfrac{1}{2}\pi \bm{i})\ket{3} &= -\ket{2}.
+\end{align*}
+\end{example}
+
+Linear operators are nice because once their action on the basis vectors is known, their action on any vector in the space is determined. If $\Omega\ket{i} = \ket{i'}$ for a basis, then for any $\ket{V} = \sum v_i \ket{i}$
+\begin{equation}\label{linear operator action on arbitrary vector}
+    \boxed{\Omega\ket{V} = \sum_i \Omega v_i\ket{i} = \sum_i v_i \Omega\ket{i} = \sum_i v_i\ket{i'}.}
+\end{equation}
+
+The \df{product of two operators} stands for the instruction that the instructions corresponding to the two operators be carried out in sequence:
+\begin{equation}\label{operator product}
+    \boxed{\Lambda\Omega\ket{V} = \Lambda(\Omega\ket{V}) = \Lambda\ket{\Omega V}.}
+\end{equation}
+
+In general,
+\begin{equation}\label{commutator}
+    \boxed{\Omega\Lambda - \Lambda\Omega \equiv [\Omega, \Lambda] \neq 0.}
+\end{equation}
+The object $[\Omega, \Lambda]$ is called the \df{commutator} of $\Omega$ and $\Lambda$.
+
+Two useful identities involving commutators are:
+\begin{align}\label{commutator identities}
+    [\Omega, \Lambda \theta] &= \Lambda[\Omega, \theta] + [\Omega, \Lambda]\theta \\
+    [\Lambda \Omega, \theta] &= \Lambda[\Omega, \theta] + [\Lambda, \theta]\Omega. \nonumber
+\end{align}
+Note the similarity with the chain rule for derivatives.
+
+The \df{inverse of an operator} $\Omega$, $\Omega^{-1}$, satisfies
+\begin{equation}\label{operator inverse}
+    \boxed{\Omega\Omega^{-1} = \Omega^{-1}\Omega = I.}
+\end{equation}
+Not every operator has an inverse (see \eqref{matrix inversion}).
+
+We have
+\begin{equation}\label{operator product inverse}
+    \boxed{(\Omega\Lambda)^{-1} = \Lambda^{-1}\Omega^{-1}}
+\end{equation}
+for only then do we have
+\begin{align*}
+    (\Omega\Lambda)(\Omega\Lambda)^{-1} &= (\Omega\Lambda)(\Lambda^{-1}\Omega^{-1}) \\
+    &= \Omega\Lambda\Lambda^{-1}\Omega^{-1} \\
+    &= \Omega\Omega^{-1} = I.
+\end{align*}
+
+\subsection{Matrix Elements of Linear Operators}
+
+\subsection{Active and Passive Transformations}
+
+\subsection{The Eigenvalue Problem}
+
+\subsection{Functions of Operators and Related Concepts}
+
+\subsection{Generalization to Infinite Dimensions}
