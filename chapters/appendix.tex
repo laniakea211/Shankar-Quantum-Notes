@@ -9,12 +9,150 @@ Consider the matrix
     a_1 & a_2 & a_3 \\
     b_1 & b_2 & b_3 \\
     c_1 & c_2 & c_3
-    \end{bmatrix}.
+    \end{bmatrix}\,.
 \end{equation}
-We consider the rows as vectors: $\bm{A} = a_1\bm{i} + a_2\bm{j} + a_3\bm{k}$, and similarly for the other two rows.
+We consider the rows as vectors: $\bm{A} = a_1\bm{i} + a_2\bm{j} + a_3\bm{k}$, and similarly for the other two rows. Recall that
+\begin{equation}\label{cross product}
+    \tcboxmath{(\bm{V \times W})^i = \varepsilon_{ijk}v^jw^k\,.}
+\end{equation}
+
+Now consider
+\begin{align}
+    \bm{A}_R &= \bm{B} \times \bm{C} \\
+    \bm{B}_R &= \bm{C} \times \bm{A} \\
+    \bm{C}_R &= \bm{A} \times \bm{B}\,,
+\end{align}
+which are said to be \df{reciprocal} to $\bm{A}$, $\bm{B}$, and $\bm{C}$. In general, 
+\begin{equation}
+\bm{A} \cdot \bm{A}_R \neq 0\,, \quad \bm{A} \cdot \bm{B}_R = \bm{A} \cdot \bm{C}_R = 0\,,
+\end{equation}
+and cyclic permutations. For example:
+\begin{multline}
+    \bm{A} \cdot \bm{A}_R = a_1(b_2c_3 - b_3c_2) + a_2(b_3c_1 - b_1c_3) \\
+    + a_3(b_1c_2 - b_2c_1) = \det M\,.
+\end{multline}
+while 
+\begin{align}
+    \bm{A} \cdot \bm{B}_R = a_1(c_2a_3 - c_3a_2) &+ a_2(c_3a_1 - c_1a_3) \\
+    &+ a_3(c_1a_2 - c_2a_1) = 0\,.
+\end{align}
+
+We now construct a matrix called the \df{cofactor transpose} of $M$ whose columns are the reciprocal vectors:
+\begin{equation*}
+    \bar{M} = 
+    \begin{bmatrix}
+    (a_R)_1 & (b_R)_1 & (c_R)_1 \\
+    (a_R)_2 & (b_R)_2 & (c_R)_2 \\
+    (a_R)_3 & (b_R)_3 & (c_R)_3
+    \end{bmatrix}
+\end{equation*}
+and note that 
+\begin{align}
+    M \bar{M} &= 
+    \begin{bmatrix}
+    \bm{A} \cdot \bm{A}_R & \bm{A} \cdot \bm{B}_R & \bm{A} \cdot \bm{C}_R \\
+    \bm{B} \cdot \bm{A}_R & \bm{B} \cdot \bm{B}_R & \bm{B} \cdot \bm{C}_R \\
+    \bm{C} \cdot \bm{A}_R & \bm{C} \cdot \bm{B}_R & \bm{C} \cdot \bm{C}_R
+    \end{bmatrix} \\
+    &=
+    \begin{bmatrix}
+    \bm{A} \cdot \bm{A}_R & 0 & 0 \\
+    0 & \bm{B} \cdot \bm{B}_R & 0 \\
+    0 & 0 & \bm{C} \cdot \bm{C}_R
+    \end{bmatrix}\,. \nonumber
+\end{align}
+
+Thus, we've found
+\begin{equation}\label{matrix inverse}
+    \tcboxmath{M^{-1} = \frac{\bar{M}}{\det M}\,.}
+\end{equation}
+
+Note that $\det M$ vanishes if the rows of the matrix are not linearly independent: if, say, $\bm{C} = \alpha\bm{A} + \beta\bm{B}$, then
+\begin{align}
+    \bm{A} \cdot \bm{A}_R &= \bm{A} \cdot (\bm{B} \times \bm{C}) \\
+    &= \bm{A} \cdot (\bm{B} \times \alpha \bm{A}) + \bm{A} \cdot (\bm{B} \times \beta\bm{B}) \\
+    &= \bm{B} \cdot (\alpha\bm{A} \times \bm{A}) \\
+    &= 0\,.
+\end{align}
+
+We can generalize this to invert $n \times n$ matrices. Define
+\begin{equation}\label{cross product generalization}
+    \tcboxmath{(\bm{A}_1 \times \bm{A}_2 \times \cdots \times \bm{A}_{n - 1})^i = \varepsilon_{i_1 \dots i_{n-1}} a_1^{i_1} \dots a_{n - 1}^{i_{n - 1}}\,.}
+\end{equation}
+
+Then if we have a matrix $M$ whose $n$ rows may be identified with $n$ vectors $\bm{A}_1, \bm{A}_2, \dots, \bm{A}_n$, then $\bar{M}$ has as its columns $\bm{A}_{1R}, \dots, \bm{A}_{nR}$.
+
+\begin{exercise}
+Using the method described above, show that
+\begin{equation*}
+    \begin{bmatrix}
+    2 & 1 & 3 \\
+    0 & 1 & 2 \\
+    -1 & 1 & 1
+    \end{bmatrix}^{-1}
+    =
+    \begin{bmatrix}
+    1 & -2 & 1 \\
+    2 & -5 & 4 \\
+    -1 & 3 & -2
+    \end{bmatrix}
+\end{equation*}
+and
+\begin{equation*}
+    \begin{bmatrix}
+    2 & 1 & 3 \\
+    4 & 1 & 2 \\
+    0 & -1 & 2
+    \end{bmatrix}^{-1}
+    = \frac{1}{12}
+    \begin{bmatrix}
+    -4 & 5 & 1 \\
+    8 & -4 & -8 \\
+    4 & -2 & 2
+    \end{bmatrix}\,.
+\end{equation*}
+\end{exercise}
+
+\begin{proof}
+For the first matrix, we have $$\bm{A} = (2, 1, 3) \quad \bm{B} = (0, 1, 2) \quad \text{and} \quad \bm{C} = (-1, 1, 1),$$ and so
+\begin{align}
+    \bm{A}_R &= (0, 1, 2) \times (-1, 1, 1) = (-1, -2, 1)\,, \\
+    \bm{B}_R &= (-1, 1, 1) \times (2, 1, 3) = (2, 5, -3)\,, \\
+    \bm{C}_R &= (2, 1, 3) \times (0, 1, 2) = (-1, -4, 2)\,.
+\end{align}
+Therefore,
+\[ \det M = \bm{A} \cdot \bm{A}_R = -2 - 2 + 3 = -1\,. \]
+Then \eqref{matrix inverse} gives the required matrix.
+
+For the second matrix, we have
+\[ \bm{A} = (2, 1, 3) \quad \bm{B} = (4, 1, 2) \quad \bm{C} = (0, -1, 2)\,, \]
+and so
+\begin{align}
+    \bm{A}_R &= (4, 1, 2) \times (0, -1, 2) = (4, -8, -4)\,, \\
+    \bm{B}_R &= (0, -1, 2) \times (2, 1, 3) = (-5, 4, 2)\,, \\
+    \bm{C}_R &= (2, 1, 3) \times (4, 1, 2) = (-1, 8, -2)\,.
+\end{align}
+Therefore,
+\[ \det M = \bm{A} \cdot \bm{A}_R = 8 - 8 - 12 = -12\,. \]
+Then \eqref{matrix inversion} gives the required matrix.
+\end{proof}
+
+\begin{theorem}
+If $\Omega \ket{V} = \ket{0}$ implies $\ket{V} = \ket{0}$ then $\Omega^{-1}$ exists.
+\end{theorem}
+
+\begin{lemma}
+If $\ket{V_1}, \dots, \ket{V_n}$ forms a linearly independent basis, then so does $\Omega\ket{V_1}, \dots, \Omega\ket{V_n}$.
+\end{lemma}
+
+\begin{proof}
+Consider
+\[ \ket{0} = \sum_i a_i\Omega\ket{V_i} = \Omega \bigg{(}\sum_i a_i\ket{V_i}\bigg{)}\,. \]
+Then $a_i = 0$ since the $\ket{V_i}$ are linearly independent.
+\end{proof}
 
 \subsection{Gaussian Integrals}
 
 \subsection{Complex Numbers}
 
-\subsection{The $i\epsilon$ Prescription}
+\subsection[The Principle Value Integral]{The $i\epsilon$ Prescription}

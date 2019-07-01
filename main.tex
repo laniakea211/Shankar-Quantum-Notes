@@ -1,7 +1,12 @@
 \documentclass[10pt,twocolumn,leqno]{article}
-\usepackage{amsmath,amsfonts,amssymb, mathtools}
-\usepackage{physics, sectsty, framed, hyperref, bm}
-\usepackage{amsthm}     % Std., but Prof. King uses a custom pkg, instead.
+\usepackage{amsmath,amsfonts,amssymb,amsthm}
+\usepackage{physics,framed,hyperref,bm}
+\usepackage{sectsty}
+\usepackage[many]{tcolorbox}
+\tcbset{enhanced, drop shadow}
+%
+\usepackage{mathtools}
+\mathtoolsset{showonlyrefs} % Only number referenced equations
 \usepackage{enumerate}  % Easy generation of fancy enumerated-lists.
 \usepackage{lastpage}
 \usepackage{relsize}    % Provides cmds `\smaller' and `\larger'.
@@ -19,6 +24,10 @@
 \usepackage{url}
 \def\eddress{\begingroup \urlstyle{tt}\Url}
 
+%% Visual editing help
+%\usepackage{showframe}
+%\setlength{\columnseprule}{0.25pt}
+
 %!! Was called "~/Classwork/Analysis/kelly-f-hm.tex".
 
                         
@@ -28,7 +37,6 @@
     \emph{Principles of Quantum Mechanics}}
 \date{\vspace{-2ex}}
 %%
-
                         %%% STA: Abbreviations %%%
 %%%% Tools
 \newcommand{\nc}{\newcommand}   \nc{\renc}{\renewcommand} \newcommand{\pc}{\providecommand}
@@ -41,8 +49,6 @@
 \nc\emfu[1]{\underbar{\ignorespaces#1\unskip}}  %Underlined emphasis.
 \nc\emfc[1]{{\color{red}#1}} %Emphasis by color.
 \nc{\emfff}[1]{\emfu{\emff{#1}}}
-\nc\thm[1]{{\mdseries\textsf{{#1}}}}    %For *citing* a thm by name.
-\nc\nth[2][th]{\ensuremath{#2^{\!\text{\textit{\,#1}}}}}
 %%
 % Note: Don't confuse \naturals with \natural --which is the prefix for a
 % "natural" in musical notation.
@@ -61,19 +67,22 @@
 %
 \nc\complex{\mathbb{C}} %Complex numbers.
 %%%% Kelly's and Erin's definitions
-\nc\g{g}        \nc\gx{g(x)}            \nc\fx{f(x)}
-\nc\fn{{f_n}}   \nc\fnx{{{f_n}(x)}}     \nc\kron{\delta_{ij}}
+\nc\gx{g(x)}            \nc\fx{f(x)}    \nc\fn{{f_n}}   \nc\fnx{{{f_n}(x)}}     \nc\kron{\delta_{ij}}
 %
 \nc\vecsp{\mathbb{V}} % Vector space
+% Roman numerals
+\makeatletter
+\nc{\Rn}[1]{\textup{\uppercase\expandafter{\romannumeral#1}}}
+\nc{\rn}[1]{\romannumeral #1}
+\makeatother
+%
                         %%% END: Abbreviations %%%
                         
                         %%% STA: Modifiers %%%
 %%
-% Set colors for section headings
-\sectionfont{\color{violet}}
-\subsectionfont{\color{violet}}
-\subsubsectionfont{\color{violet}}
-
+% Style section headings
+\allsectionsfont{\color{violet}\raggedright}
+%
 % Set theorem styles
 \newtheoremstyle{theorem}
     {}
@@ -85,11 +94,11 @@
     { }
     {}
 \theoremstyle{theorem}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem*{claim}{Claim}
-\newtheorem{corollary}{Corollary}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{proposition}[theorem]{Proposition}
+\newtheorem*{claim}{Claim}
 \newtheorem*{remark}{Remark}
 
 \newtheoremstyle{example}
@@ -116,10 +125,9 @@
 \theoremstyle{exercise}
 \newtheorem{exercise}{Exercise}[subsection]
 
-% Redefine \proof
-\let\oldproof\proof
-\renc{\proof}{\oldproof[\emfc{Proof.}]}
+% Redefine \proof and QED symbol
 \renc\qedsymbol{\emfc{$\lozenge$}}
+\renewenvironment{proof}[1][\proofname]{{\emfc{\textit{#1}} }}{\qed}
 
 % Have equations numbered by subsection
 \numberwithin{equation}{subsection}
@@ -127,7 +135,7 @@
 % Table of contents depth
 \setcounter{tocdepth}{2}
 %%
-                        %%% END: Modifiers %%%                        
+                        %%% END: Modifiers %%%
 
 %% Document
 \begin{document}
@@ -163,7 +171,7 @@
 \section{The Heisenberg Uncertainty Relation}
 \input{chapters/ch09.tex}
 
-\section{System with $N$ Degrees of Freedom}
+\section{System with Arbitrary Degrees of Freedom}
 \input{chapters/ch10.tex}
 
 \section{Symmetries and their Consequences}
