@@ -1,6 +1,6 @@
 \documentclass[10pt,twocolumn,leqno]{article}
 \usepackage{amsmath,amsfonts,amssymb,amsthm}
-\usepackage{physics,framed,hyperref,bm}
+\usepackage{physics,framed,hyperref,bm, empheq}
 \usepackage{sectsty}
 \usepackage[many]{tcolorbox}
 \tcbset{enhanced, drop shadow}
@@ -66,10 +66,14 @@
 \nc\realtwoptset{{\rcc\mii\pii}}
 %
 \nc\complex{\mathbb{C}} %Complex numbers.
+%
+\nc\proj{\mathbb{P}}
 %%%% Kelly's and Erin's definitions
 \nc\gx{g(x)}            \nc\fx{f(x)}    \nc\fn{{f_n}}   \nc\fnx{{{f_n}(x)}}     \nc\kron{\delta_{ij}}
 %
 \nc\vecsp{\mathbb{V}} % Vector space
+%
+\nc\sumin{\sum^n_{i = 1}} % Summing notation
 % Roman numerals
 \makeatletter
 \nc{\Rn}[1]{\textup{\uppercase\expandafter{\romannumeral#1}}}

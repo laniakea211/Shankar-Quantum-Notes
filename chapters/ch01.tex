@@ -327,13 +327,10 @@ It is the \emfu{functional} which is being represented by the row vector, becaus
 \subsubsection{Expansion of Vectors in an Orthonormal Basis}
 
 Say we wish to expand a vector $\ket{V}$ in an orthonormal basis. Suppose $\ket{V} = \sum_i v_i \ket{i}$. Then the orthogonality of the basis yields the following result:
-\begin{center}
-\tcboxmath{
-\begin{alignedat}{3}
-    &&\braket{j}{V} &= \sum_i v_i \braket{j}{i} = v_j \label{component formula} \\
-    &\implies &\ket{V} &= \sum_i \ket{i} \braket{i}{V}\,. \label{orthogonal basis expansion}
-\end{alignedat}}
-\end{center}
+\begin{empheq}[box=\tcboxmath]{alignat=3}
+    &&\braket{j}{V} &= \sum_i v_i \braket{j}{i} = v_j \label{component formula}\\
+    &\implies &\ket{V} &= \sum_i \ket{i} \braket{i}{V}\,. \label{orthonormal basis expansion}
+\end{empheq}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -903,7 +900,7 @@ The operator on $\vecsp^3(\reals)$ given by the action:
 \[ R(\bm{\theta}) \rightarrow \text{Rotate vector by } |\bm{\theta}| \text{ about unit vector } \tfrac{\bm{\theta}}{|\bm{\theta}|}\,.\]
 For instance:
 \begin{align}
-    R(\tfrac{1}{2}\pi \bm{i})\ket{1} &= \ket{1} \\
+    R(\tfrac{1}{2}\pi \bm{i})\ket{1} &= \ket{1} \label{rotate by pi/2}\\
     R(\tfrac{1}{2}\pi \bm{i})\ket{2} &= \ket{3} \\
     R(\tfrac{1}{2}\pi \bm{i})\ket{3} &= -\ket{2}\,.
 \end{align}
@@ -953,6 +950,124 @@ for only then do we have
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Matrix Elements of Linear Operators}
+
+We will see that linear operators can be represented in a basis as an $n \times n$ matrix.
+
+Suppose we know an operator's action on a basis $\Omega \ket{i} = \ket{i'}$. This means that we know the components of $\ket{i'}$ in the basis $\ket{i}$. Assuming $\ket{i}$ is orthonormal, we have from \eqref{component formula} that
+\begin{equation}\label{operator elements}
+    \tcboxmath{i'_j = \braket{j}{i'} = \bra{j}\Omega\ket{i} \equiv \Omega_{ji}\,.}
+\end{equation}
+Since there are $n$ such $\ket{i'}$ and $n$ such $\bra{j}$, there are $n^2$ such $\Omega_{ji}$.
+
+We can arrange these $\Omega_{ji}$ into a matrix
+\begin{equation}\label{operator matrix}
+\tcboxmath{
+    \Omega \leftrightarrow 
+    \begin{bmatrix}
+    \bra{1}\Omega\ket{1} & \dots & \bra{1}\Omega\ket{n} \\
+    \vdots & & \vdots \\
+    \bra{n}\Omega\ket{1} & \dots & \bra{n}\Omega\ket{n}
+    \end{bmatrix}}
+\end{equation}
+with regard to this basis.
+
+\begin{remark}
+The $i$th column is where $\Omega$ takes the basis vector $\ket{i}$.
+\end{remark}
+
+Note also that $\Omega \ket{V}$ becomes the matrix $\Omega$ multiplying the column vector $\ket{V}$ in the same basis. Likewise $\bra{V} \Omega$ becomes the row vector $\bra{V}$ multiplying the matrix $\Omega$ in the same basis.
+
+\begin{example}
+We can write down the matrix for $R(\frac{1}{2}\pi \bm{i})$ by looking at where it takes the basis vectors (see Equations \eqref{rotate by pi/2}):
+\begin{equation}
+    R(\tfrac{1}{2}\pi \bm{i}) \leftrightarrow
+    \begin{bmatrix}
+    1 & 0 & 0 \\
+    0 & 0 & -1 \\
+    0 & 1 & 0
+    \end{bmatrix}\,.
+\end{equation}
+\end{example}
+
+\begin{exercise}
+An operator $\Omega$ is given by the matrix
+\begin{equation}
+    \begin{bmatrix}
+    0 & 0 & 1 \\
+    1 & 0 & 0 \\
+    0 & 1 & 0
+    \end{bmatrix}\,.
+\end{equation}
+What is its action?
+\end{exercise}
+
+\begin{proof}[Solution]
+By looking at the columns, we can see that its action is
+\begin{equation}
+    \Omega \ket{1} = \ket{2}\,, \quad \Omega \ket{2} = \ket{3}\,, \quad \Omega \ket{3} = \ket{1}\,.
+\end{equation}
+\end{proof}
+
+Clearly, the identity operator $I$ is equal to the identity matrix: $I_{ij} = \bra{i}I\ket{j} = \braket{i}{j} = \kron$.
+
+Recall Equation \eqref{orthonormal basis expansion}: $\ket{V} = \sum_i \ket{i} \braket{i}{V}$. Instead of thinking of $\braket{i}{V}$ as an entity, we can consider the outer product $\ketbra{i}$ as a linear operator acting on $\ket{V}$. Thus we have
+\begin{equation}\label{completeness relation}
+    \tcboxmath{I = \sum^n_{i = 1} \ketbra{i} = \sumin \proj_i\,,}
+\end{equation}
+where we call $\proj_i = \ketbra{i}$ the \df{projection operator} for the ket $\ket{i}$. Equation \eqref{completeness relation} is called the \df{completeness relation}.
+
+\begin{remark}
+From Equation \eqref{orthonormal basis expansion}, we see that $\proj_i \ket{V}$ projects the component of $\ket{V}$ in the direction of $\ket{i}$: $\proj_i \ket{V} = \ket{i} v_i$. Hence its name.
+
+The completeness relation, Equation \eqref{completeness relation}, shows that every Cauchy sequence of vectors converges to a vector in the space, since every vector can be written in terms of the basis vectors.
+\end{remark}
+
+Projection operators corresponding to the basis vectors obey
+\begin{equation}\label{repeated projection operators}
+    \proj_i \proj_j = \ket{i}\braket{i}{j}\bra{j} = \kron \proj_j\,.
+\end{equation}
+
+\begin{remark}
+This is clearly true since (1) once you project a vector along a basis, further projections along the same direction make no difference; and (2) once you project a vector along a basis, a subsequent projection along a different basis is zero since they're orthogonal.
+\end{remark}
+
+From Equation \eqref{operator elements}, we see that 
+\begin{equation}\label{projection matrix elements}
+    (\proj_i)_{kl} = \braket{k}{i}\braket{i}{l} = \delta_{ki}\delta_{il} = \delta_{kl}\delta_{li}\,,
+\end{equation}
+which is a matrix with a 1 at the $i$th diagonal element and 0 elsewhere. If we form the sum over some (not all) of the projection operators, we get the operator which projects a given vector into the subspace spanned by just the corresponding basis vectors.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Matrices Corresponding to Products of Operators}
+
+From the completeness relation, Equation \eqref{completeness relation}, we can see that
+\begin{align}
+    (\Omega\Lambda)_{ij} &= \bra{i}\Omega\Lambda\ket{j} = \bra{i}\Omega I \Lambda\ket{j} \\
+    &= \sum_k \bra{i}\Omega\ket{k} \bra{k}\Lambda\ket{j} = \sum_k \Omega_{ik}\Lambda_{kj}\,,
+\end{align}
+which is the product of the two matrices.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{The Adjoint of an Operator}
+
+If we write $\Omega \ket{V}$ as $\ket{\Omega V}$, we denote the corresponding bra as
+\begin{equation}
+    \bra{\Omega V} = \bra{V} \Omega^\dagger\,.
+\end{equation}
+But what is $\Omega^\dagger$?
+
+In a basis we can see that
+\begin{align}
+    (\Omega^\dagger)_{ij} &= \bra{i}\Omega^\dagger\ket{j} = \braket{\Omega i}{j} \\
+    &= \braket{j}{\Omega i}^* = \bra{j}\Omega\ket{i}\,.
+\end{align}
+Thus
+\begin{equation}\label{operator adjoint elements}
+    \tcboxmath{\Omega^\dagger_{ij} = \Omega^*_{ji}\,.}
+\end{equation}
+That is, $\Omega^\dagger$ is the transpose conjugate of the matrix $\Omega$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

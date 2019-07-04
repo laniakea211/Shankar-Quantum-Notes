@@ -137,18 +137,22 @@ Therefore,
 Then \eqref{matrix inversion} gives the required matrix.
 \end{proof}
 
-\begin{theorem}
+\begin{theorem}\label{th a1}
 If $\Omega \ket{V} = \ket{0}$ implies $\ket{V} = \ket{0}$ then $\Omega^{-1}$ exists.
 \end{theorem}
 
-\begin{lemma}
+\begin{lemma}\label{linear operator on linearly independent basis}
 If $\ket{V_1}, \dots, \ket{V_n}$ forms a linearly independent basis, then so does $\Omega\ket{V_1}, \dots, \Omega\ket{V_n}$.
 \end{lemma}
 
 \begin{proof}
 Consider
 \[ \ket{0} = \sum_i a_i\Omega\ket{V_i} = \Omega \bigg{(}\sum_i a_i\ket{V_i}\bigg{)}\,. \]
-Then $a_i = 0$ since the $\ket{V_i}$ are linearly independent.
+Then for all $i$, $a_i = 0$ since the $\ket{V_i}$ are linearly independent.
+\end{proof}
+
+\begin{proof}[Proof (Theorem \eqref{th a1})]
+
 \end{proof}
 
 \subsection{Gaussian Integrals}
