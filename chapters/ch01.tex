@@ -977,7 +977,7 @@ The $i$th column is where $\Omega$ takes the basis vector $\ket{i}$.
 
 Note also that $\Omega \ket{V}$ becomes the matrix $\Omega$ multiplying the column vector $\ket{V}$ in the same basis. Likewise $\bra{V} \Omega$ becomes the row vector $\bra{V}$ multiplying the matrix $\Omega$ in the same basis.
 
-\begin{example}
+\begin{example}\label{rotation matrix for pi/2}
 We can write down the matrix for $R(\frac{1}{2}\pi \bm{i})$ by looking at where it takes the basis vectors (see Equations \eqref{rotate by pi/2}):
 \begin{equation}
     R(\tfrac{1}{2}\pi \bm{i}) \leftrightarrow
@@ -1061,13 +1061,196 @@ But what is $\Omega^\dagger$?
 In a basis we can see that
 \begin{align}
     (\Omega^\dagger)_{ij} &= \bra{i}\Omega^\dagger\ket{j} = \braket{\Omega i}{j} \\
-    &= \braket{j}{\Omega i}^* = \bra{j}\Omega\ket{i}\,.
+    &= \braket{j}{\Omega i}^* = \bra{j}\Omega\ket{i}^*\,.
 \end{align}
 Thus
 \begin{equation}\label{operator adjoint elements}
     \tcboxmath{\Omega^\dagger_{ij} = \Omega^*_{ji}\,.}
 \end{equation}
 That is, $\Omega^\dagger$ is the transpose conjugate of the matrix $\Omega$.
+
+We have $\bra{\Omega \Lambda V} = \bra{V}(\Omega \Lambda)^\dagger$. But we also have $\bra{\Omega \Lambda V} = \bra{\Lambda V}\Omega^\dagger = \bra{V}\Lambda^\dagger \Omega^\dagger$. And so we have
+\begin{equation}\label{product of adjoint operators}
+    \tcboxmath{(\Omega \Lambda)^\dagger = \Lambda^\dagger \Omega^\dagger\,.}
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsubsection{Hermitian, Anti-Hermitian, and Unitary Operators}
+
+\begin{shaded*}
+The following classes of operators will play a major role in quantum mechanics:
+\begin{enumerate}
+    \item We say an operator $\Omega$ is \df{Hermitian} if\\ $\Omega^\dagger = \Omega$.
+    \item We say an operator $\Omega$ is \df{anti-Hermitian} if $\Omega^\dagger = -\Omega$.
+\end{enumerate}
+\end{shaded*}
+
+The adjoint is to an operator what the complex conjugate is to numbers. Hermitian and anti-Hermitian operators are like pure real and pure imaginary numbers. Just as every number may be decomposed into a sum of pure real and pure imaginary parts ($\alpha = \frac{\alpha + \alpha^*}{2} + \frac{\alpha - \alpha^*}{2}$), we can decompose every operator into its Hermitian and anti-Hermitian parts:
+\begin{equation}\label{matrix decomposition}
+    \tcboxmath{\Omega = \frac{\Omega + \Omega^\dagger}{2} + \frac{\Omega - \Omega^\dagger}{2}\,.}
+\end{equation}
+
+\begin{exercise}
+Given $\Omega$ and $\Lambda$ are Hermitian what can you say about (1) $\Omega\Lambda$; (2) $\Omega\Lambda + \Lambda\Omega$; (3) $[\Omega, \Lambda]$; and (4) $i[\Omega, \Lambda]$?
+\end{exercise}
+
+\begin{proof}[Solution]
+\begin{enumerate}
+    \item[(1)] We have that $(\Omega\Lambda)^\dagger = \Lambda^\dagger \Omega^\dagger = \Lambda\Omega$. And so the product $\Omega\Lambda$ is only Hermitian if and only if $\Omega$ and $\Lambda$ commute.
+    \item[(2)] We have that $(\Omega\Lambda + \Lambda\Omega)^\dagger = \Lambda\Omega + \Omega\Lambda = \Omega\Lambda + \Lambda\Omega$, and so the sum $\Omega\Lambda + \Lambda\Omega$ is Hermitian.
+    \item[(3)] We have that \\$[\Omega, \Lambda]^\dagger = (\Omega\Lambda - \Lambda\Omega)^\dagger = -(\Omega\Lambda - \Lambda\Omega) = -[\Omega, \Lambda]$. And so $[\Omega, \Lambda]$ is anti-Hermitian.
+    \item[(4)] We have that $(i[\Omega, \Lambda])^\dagger = -i(\Lambda\Omega - \Omega\Lambda = i[\Omega, \Lambda]$. So $i[\Omega, \Lambda]$ is Hermitian.
+\end{enumerate}
+\end{proof}
+
+\begin{shaded*}
+An operator $U$ is \df{unitary} if $UU^\dagger = U^\dagger U = I$.
+\end{shaded*}
+
+Following the analogy between operators and numbers, unitary operators are like complex numbers of unit modulus, $u = e^{i\theta}$. Just as $u^*u = 1$, so is $U^\dagger U = I$.
+
+\begin{exercise}
+Show that a product of unitary operators is unitary.
+\end{exercise}
+
+\begin{proof}
+Suppose $\Omega\Omega^\dagger = I$ and $\Lambda\Lambda^\dagger = I$. Then we have $(\Omega\Lambda)(\Omega\Lambda)^\dagger = \Omega\Lambda\Lambda^\dagger\Omega^\dagger = \Omega\Omega^\dagger = I$.
+\end{proof}
+
+\begin{theorem}\label{unitary preserve inner products}
+Unitary operators preserve the inner product between the vectors they act on.
+\end{theorem}
+
+\begin{proof}
+Let $\ket{V'_1} = U\ket{V_1}$ and $\ket{V'_2} = U\ket{V_2}$. Then $\braket{V'_2}{V'_1} = \braket{UV_2}{UV_1} = \bra{V_2}U^\dagger U\ket{V_1} = \braket{V_2}{V_1}$.
+\end{proof}
+
+\begin{remark}
+Unitary operators are the generalizations of rotation operators from $\vecsp^3(\reals)$ to $\vecsp^n(\complex)$, for just like rotation operators in three dimensions, they preserve the lengths of vectors and their dot products. In fact, on a real vector space, the unitary condition becomes $U^{-1} = U^T$, which defines an \df{orthogonal} or rotation matrix.
+\end{remark}
+
+\begin{theorem}
+If one treats the columns of an $n \times n$ unitary matrix as components of $n$ vectors, these vectors are orthonormal. In the same way, the rows may be interpreted as components of $n$ orthonormal vectors.
+\end{theorem}
+
+\begin{proof}
+This is easy to see from the fact that the columns of a matrix representing a linear operator are where the operator takes the basis vectors. If the operator is unitary and preserves inner products, then it must take mutually orthogonal vectors to mutually orthogonal vectors. For the rows, note that $U^\dagger$ is a rotation since it is the inverse of $U$, a rotation. Moreover, since complex conjugation does affect orthonormality we are done, since the columns of $U^\dagger$ are the rows of $U$ except for complex conjugation.
+\end{proof}
+
+\begin{exercise}
+Recall that $\det \Omega^T = \det \Omega$ and that $\det (\Omega\Lambda) = \det \Omega \det \Lambda$. Prove that the determinant of a unitary matrix is a complex number of unit modulus.
+\end{exercise}
+
+\begin{proof}
+We have
+\begin{alignat}{2}
+    &&UU^\dagger &= I \\
+    &\implies &\det (UU^\dagger) &= 1 \\
+    &\implies &\det U \det U^\dagger &= 1 \\
+    &\implies &\det U (\det U)^* &= 1\,,
+\end{alignat}
+which implies that $\det U$ is a complex number of modulus 1.
+\end{proof}
+
+\begin{exercise}
+Verify that $R(\tfrac{1}{2}\pi \bm{i})$ is unitary (orthogonal) by examining its matrix.
+\end{exercise}
+
+\begin{proof}
+From Example \eqref{rotation matrix for pi/2} we can see that each column (being a basis vector) is orthogonal to each other.
+\end{proof}
+
+\begin{exercise}
+Verify that the following matrices are unitary:
+\begin{equation}
+    \frac{1}{\sqrt{2}}
+    \begin{bmatrix}
+    1 & i \\
+    i & 1
+    \end{bmatrix}\,,
+    \quad \frac{1}{2}
+    \begin{bmatrix}
+    1 + i & 1 - i \\
+    1 - i & 1 + i
+    \end{bmatrix}\,.
+\end{equation}
+Verify that the determinant is of the form $e^{i\theta}$ in each case. Are any of the above matrices Hermitian?
+\end{exercise}
+
+\begin{proof}
+The adjoints of the two matrices are
+\begin{equation}
+    \frac{1}{\sqrt{2}}
+    \begin{bmatrix}
+    1 & -i \\
+    -i & 1
+    \end{bmatrix}\,,
+    \quad
+    \frac{1}{2}
+    \begin{bmatrix}
+    1 - i & 1 + i \\
+    1 + i & 1 - i
+    \end{bmatrix}\,.
+\end{equation}
+(Note then that neither matrix is Hermitian; in fact the first one is anti-Hermitian.) We have
+\begin{equation}
+    \frac{1}{2}
+    \begin{bmatrix}
+    1 & i \\
+    i & 1
+    \end{bmatrix}
+     \begin{bmatrix}
+    1 & -i \\
+    -i & 1
+    \end{bmatrix}
+    = \frac{1}{2}
+    \begin{bmatrix}
+    2 & 0 \\
+    0 & 2
+    \end{bmatrix}
+    = I
+\end{equation}
+for the first matrix and
+\begin{equation}
+    \frac{1}{4}
+    \begin{bmatrix}
+    1 + i & 1 - i \\
+    1 - i & 1 + i
+    \end{bmatrix}
+    \begin{bmatrix}
+    1 - i & 1 + i \\
+    1 + i & 1 - i
+    \end{bmatrix}
+    = \frac{1}{4}
+    \begin{bmatrix}
+    4 & 0 \\
+    0 & 4
+    \end{bmatrix}
+    = I
+\end{equation}
+for the second equation.
+
+We also have 
+\begin{equation}
+    \det
+    \begin{bmatrix}
+    1/\sqrt2 & i/\sqrt2 \\
+    i/\sqrt2 & 1/\sqrt2
+    \end{bmatrix}
+    = \frac{1}{2} - \bigg(\frac{-1}{2}\bigg) = 1 = e^{i0}
+\end{equation}
+for the first matrix and
+\begin{equation}
+    \det 
+    \begin{bmatrix}
+    (1 + i)/2 & (1 - i)/2 \\
+    (1 - i)/2 & (1 + i)/2
+    \end{bmatrix}
+    = \frac{2i}{4} - \frac{-2i}{4} = i = e^{i\pi / 2}
+\end{equation}
+for the second matrix.
+\end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
